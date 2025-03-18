@@ -7,7 +7,8 @@ const cowboyNames = [
   "Django",
   "Doc Holliday", 
   "The Lone Ranger",
-  "Buffalo Bill"
+  "Buffalo Bill",
+  "someone new"
 ];
 
 const PLACEHOLDER_IMAGE = "https://via.placeholder.com/300x400?text=No+Image";
