@@ -4,7 +4,6 @@ import "./App.css";
 const cowboyNames = [
   "Wyatt Earp",
   "Butch Cassidy & The Sundance Kid",
-  "Marshal Reuben J. Cogburn",
   "Django",
   "Doc Holliday", 
   "The Lone Ranger",
