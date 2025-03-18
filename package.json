@@ -1,7 +1,7 @@
 {
   "name": "cowboy-app",
   "version": "0.1.0",
-  "homepage": "http://www.chrisvaccarodesign.com/cowboy-app",
+  "homepage": "/cowboy-app",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
