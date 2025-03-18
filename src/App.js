@@ -7,7 +7,8 @@ const cowboyNames = [
   "Marshal Reuben J. Cogburn",
   "Django",
   "Doc Holliday", 
-  "The Lone Ranger"
+  "The Lone Ranger",
+  "Buffalo Bill"
 ];
 
 const PLACEHOLDER_IMAGE = "https://via.placeholder.com/300x400?text=No+Image";
