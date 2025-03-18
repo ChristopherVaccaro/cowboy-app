@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 
 const cowboyNames = [
-  "Butch Cassidy & The Sundance Kid",
   "Django",
   "Doc Holliday", 
   "The Lone Ranger",
