@@ -6,7 +6,8 @@ const cowboyNames = [
   "Butch Cassidy & The Sundance Kid",
   "Marshal Reuben J. Cogburn",
   "Django",
-  "Doc Holliday"
+  "Doc Holliday", 
+  "The Lone Ranger"
 ];
 
 const PLACEHOLDER_IMAGE = "https://via.placeholder.com/300x400?text=No+Image";
