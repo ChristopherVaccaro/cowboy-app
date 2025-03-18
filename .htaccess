@@ -1,12 +1,11 @@
 Options -MultiViews
 RewriteEngine On
-
-# Redirect all requests to index.html (for React Router)
+RewriteBase /cowboy-app/
+RewriteRule ^index\.html$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ /index.html [QSA,L]
+RewriteRule . /cowboy-app/index.html [L]
 
-# Prevent caching issues by forcing browsers to fetch fresh files
 <IfModule mod_expires.c>
     ExpiresActive On
     ExpiresDefault "access plus 0 seconds"
@@ -17,3 +16,4 @@ RewriteRule ^ /index.html [QSA,L]
     Header set Pragma "no-cache"
     Header set Expires 0
 </IfModule>
+
