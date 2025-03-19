@@ -10,10 +10,11 @@ const cowboyNames = [
   "The Sundance Kid",
   "The Lone Ranger",
   "Buffalo bill",
-  "Doc Holliday"
+  "Doc Holliday",
+  "Django"
 ];
 
-const PLACEHOLDER_IMAGE = "https://via.placeholder.com/300x400?text=No+Image";
+const PLACEHOLDER_IMAGE = "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg";
 
 function CowboyApp() {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -24,27 +25,28 @@ function CowboyApp() {
     wikiUrl: "#"
   });
   const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
   const selectedCowboy = cowboyNames[selectedIndex];
 
   // ✅ Fetch cowboy details
   const fetchCowboyData = useCallback(async () => {
-    setLoading(true);
     try {
       const response = await fetch(
         `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(selectedCowboy)}`
       );
       const data = await response.json();
-
+  
+      // ✅ Check if Wikipedia provides an image
+      const imageUrl = data.thumbnail?.source || PLACEHOLDER_IMAGE;
+  
       setTimeout(() => {
         setCowboyData({
           name: selectedCowboy,
-          image: data.thumbnail?.source || PLACEHOLDER_IMAGE,
+          image: imageUrl,
           description: data.extract || "No description available.",
           wikiUrl: data.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${selectedCowboy.replace(" ", "_")}`
         });
-        setLoading(false);
       }, 300);
     } catch (error) {
       console.error("Error fetching Wikipedia data:", error);
@@ -54,7 +56,6 @@ function CowboyApp() {
         description: "Unable to load cowboy information.",
         wikiUrl: `https://en.wikipedia.org/wiki/${selectedCowboy.replace(" ", "_")}`
       });
-      setLoading(false);
     }
   }, [selectedCowboy]);
 
