@@ -1,22 +1,22 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./App.css";
 
-const TMDB_API_KEY = "YOUR_TMDB_API_KEY"; // 🔥 Replace with your actual API key
+const TMDB_API_KEY = "YOUR_TMDB_API_KEY";
 
 const cowboyNames = [
   "The Man with No Name",
   "Wyatt Earp",
   "Butch Cassidy",
   "The Sundance Kid",
-  "Marshal Reuben J. Cogburn",
-  "Django",
+  "The Lone Ranger",
+  "Buffalo bill",
   "Doc Holliday"
 ];
 
 const PLACEHOLDER_IMAGE = "https://via.placeholder.com/300x400?text=No+Image";
 
 function CowboyApp() {
-  const [selectedCowboy, setSelectedCowboy] = useState(cowboyNames[0]);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [cowboyData, setCowboyData] = useState({
     name: cowboyNames[0],
     image: PLACEHOLDER_IMAGE,
@@ -26,75 +26,84 @@ function CowboyApp() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const selectedCowboy = cowboyNames[selectedIndex];
+
   // ✅ Fetch cowboy details
-  const fetchCowboyData = useCallback(async (cowboy) => {
-    setLoading(true); // Show transition effect
+  const fetchCowboyData = useCallback(async () => {
+    setLoading(true);
     try {
       const response = await fetch(
-        `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(cowboy)}`
+        `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(selectedCowboy)}`
       );
       const data = await response.json();
 
-      setTimeout(() => { // Smooth loading delay to prevent flashing
+      setTimeout(() => {
         setCowboyData({
-          name: cowboy,
+          name: selectedCowboy,
           image: data.thumbnail?.source || PLACEHOLDER_IMAGE,
           description: data.extract || "No description available.",
-          wikiUrl: data.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${cowboy.replace(" ", "_")}`
+          wikiUrl: data.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${selectedCowboy.replace(" ", "_")}`
         });
-        setLoading(false); // End transition effect
-      }, 300); // 300ms fade-in effect
-
+        setLoading(false);
+      }, 300);
     } catch (error) {
       console.error("Error fetching Wikipedia data:", error);
       setCowboyData({
-        name: cowboy,
+        name: selectedCowboy,
         image: PLACEHOLDER_IMAGE,
         description: "Unable to load cowboy information.",
-        wikiUrl: `https://en.wikipedia.org/wiki/${cowboy.replace(" ", "_")}`
+        wikiUrl: `https://en.wikipedia.org/wiki/${selectedCowboy.replace(" ", "_")}`
       });
       setLoading(false);
     }
-  }, []);
+  }, [selectedCowboy]);
 
   // ✅ Fetch movies
-  const fetchMovies = useCallback(async (cowboy) => {
-    setMovies([]); // Reset movie list for smooth transition
+  const fetchMovies = useCallback(async () => {
+    setMovies([]);
     try {
       const response = await fetch(
-        `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(cowboy)}`
+        `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(selectedCowboy)}`
       );
       const data = await response.json();
-
-      if (data.results && data.results.length > 0) {
-        setMovies(data.results.slice(0, 5));
-      } else {
-        setMovies([]);
-      }
+      setMovies(data.results ? data.results.slice(0, 5) : []);
     } catch (error) {
       console.error("Error fetching TMDb movies:", error);
       setMovies([]);
     }
-  }, []);
+  }, [selectedCowboy]);
 
-  // ✅ Update content only (no full refresh)
+  // ✅ Update content when cowboy changes
   useEffect(() => {
-    fetchCowboyData(selectedCowboy);
-    fetchMovies(selectedCowboy);
-  }, [selectedCowboy, fetchCowboyData, fetchMovies]);
+    fetchCowboyData();
+    fetchMovies();
+  }, [fetchCowboyData, fetchMovies]);
+
+  // ✅ Handle "Next" & "Previous" button clicks
+  const handleNext = () => {
+    if (selectedIndex < cowboyNames.length - 1) {
+      setSelectedIndex(selectedIndex + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (selectedIndex > 0) {
+      setSelectedIndex(selectedIndex - 1);
+    }
+  };
 
   return (
     <div className="app-container">
-      {/* ✅ Left Navigation with Cowboy Names */}
+      {/* ✅ Left Navigation (Still Available) */}
       <nav className="cowboy-nav">
-        <div className="skull-logo"></div>
-        <h2 className="nav-title">Legendary Cowboys</h2>
+        <div class="skull-logo"></div>
+        <h2 className="nav-title">Legendary Gunslingers</h2>
         <ul>
-          {cowboyNames.map((name) => (
+          {cowboyNames.map((name, index) => (
             <li
               key={name}
-              className={`cowboy-item ${selectedCowboy === name ? "selected" : ""}`}
-              onClick={() => setSelectedCowboy(name)}
+              className={`cowboy-item ${selectedIndex === index ? "selected" : ""}`}
+              onClick={() => setSelectedIndex(index)}
             >
               {name}
             </li>
@@ -102,28 +111,24 @@ function CowboyApp() {
         </ul>
       </nav>
 
-      {/* ✅ Main Content (Only Image & Text Change) */}
+      {/* ✅ Main Content */}
       <div className="content">
-        <div className={`image-container ${loading ? "fade-out" : "fade-in"}`}>
+        <div className="image-container">
           <img src={cowboyData.image} alt={cowboyData.name} />
         </div>
 
-        <div className={`info-container ${loading ? "fade-out" : "fade-in"}`}>
+        <div className="info-container">
           <h2>{cowboyData.name}</h2>
           <p>{cowboyData.description}</p>
 
+          {/* ✅ Movie Appearances */}
           {movies.length > 0 && (
             <div>
               <h3>Movies & Appearances:</h3>
               <ul>
                 {movies.map((movie, index) => (
                   <li key={index}>
-                    <a
-                      href={`https://www.themoviedb.org/movie/${movie.id}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="movie-link"
-                    >
+                    <a href={`https://www.themoviedb.org/movie/${movie.id}`} target="_blank" rel="noopener noreferrer">
                       {movie.title} ({movie.release_date ? movie.release_date.split("-")[0] : "N/A"})
                     </a>
                   </li>
@@ -132,11 +137,21 @@ function CowboyApp() {
             </div>
           )}
 
-          <p>
-            <a href={cowboyData.wikiUrl} target="_blank" rel="noopener noreferrer" className="wiki-link">
-              Read more on Wikipedia →
-            </a>
-          </p>
+          {/* ✅ Wikipedia Link */}
+          <div className="wiki-nav-container">
+  <a href={cowboyData.wikiUrl} target="_blank" rel="noopener noreferrer" className="wiki-link">
+    Read more on Wikipedia →
+  </a>
+  
+  <div className="button-container">
+    <button onClick={handlePrevious} disabled={selectedIndex === 0} className="nav-button">
+      ◀ Previous
+    </button>
+    <button onClick={handleNext} disabled={selectedIndex === cowboyNames.length - 1} className="nav-button">
+      Next ▶
+    </button>
+  </div>
+</div>
         </div>
       </div>
     </div>
