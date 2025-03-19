@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 
 const cowboyNames = [
+  "Man with No Name",
   "Django",
   "Doc Holliday", 
   "The Lone Ranger",
