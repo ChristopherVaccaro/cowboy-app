@@ -1,67 +1,171 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Rye&display=swap');
 
 body {
-  font-family: 'Cinzel', serif; /* Classic Western lettering */
-  background: url('https://www.transparenttextures.com/patterns/wood-pattern.png'); /* Dark wood texture */
+  font-family: 'Cinzel', serif;
+  background: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
   color: #e8d4b0;
   text-align: center;
   margin: 0;
   padding: 0;
 }
 
+/* ✅ Overall App Layout */
+.app-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* ✅ Left Sidebar Navigation */
+.cowboy-nav {
+  width: 250px;
+  background: #4e3224;
+  padding: 20px;
+  color: #fff;
+  font-family: 'Rye', serif;
+  border-right: 4px solid #8b5a2b;
+}
+
+.nav-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #d4af37;
+  padding-bottom: 5px;
+}
+
+/* ✅ List of Cowboy Names */
+.cowboy-nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.cowboy-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+  font-size: 18px;
+  border-radius: 5px;
+}
+
+.cowboy-item .icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+/* ✅ Highlight Selected Cowboy */
+.cowboy-item.selected {
+  background: #d4af37;
+  color: #4e3224;
+  font-weight: bold;
+}
+
+/* ✅ Hover Effect */
+.cowboy-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ✅ Mobile View: Cowboy Name Carousel */
+.mobile-carousel {
+  display: none;
+  padding: 15px;
+  background: #4e3224;
+  border-bottom: 4px solid #8b5a2b;
+}
+
+.carousel-item {
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.carousel-item p {
+  color: #d4af37;
+  font-weight: bold;
+}
+
+.carousel-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 5px;
+}
+
+.carousel-item.selected {
+  background: #d4af37;
+  color: #4e3224;
+}
+
+/* ✅ Content Section */
+.content {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ✅ Movie & Wikipedia Links */
+.movie-link {
+  color: #d4af37;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease-in-out;
+}
+
+.movie-link:hover {
+  color: #f1c40f;
+  text-decoration: underline;
+}
+
+.wiki-link {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: #8b4513;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease-in-out;
+}
+
+.wiki-link:hover {
+  background: #a0522d;
+}
+
+/* ✅ Main Container */
 .container {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 30px;
-  background: linear-gradient(145deg, #4b2e1a, #2e1b0f);
-  border-radius: 14px;
+  width: 90%;
+  max-width: 1200px;
+  height: 70vh;
+  margin: 20px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(circle, #7a553c 20%, #4e3224 80%);
+  border-radius: 12px;
+  border: 4px solid #8b5a2b;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.6);
-  border: 6px solid #a77b43; /* Brass-like accents */
   position: relative;
 }
 
+/* ✅ Heading */
 h1 {
   font-size: 42px;
-  color: #d4af37; /* Gold-brass title */
+  color: #d4af37;
   text-shadow: 3px 3px 0px #3b2412, 6px 6px 0px rgba(0, 0, 0, 0.5);
   margin-bottom: 20px;
   font-family: 'Rye', serif;
   letter-spacing: 3px;
 }
 
-select {
-  padding: 12px;
-  font-size: 18px;
-  background: #8b5a2b;
-  border: 3px solid #d4af37;
-  color: white;
-  cursor: pointer;
-  width: 100%;
-  max-width: 400px;
-  border-radius: 8px;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-select:hover {
-  background: #a36e3a;
-}
-
-.content {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-  border: 3px solid #d4af37;
-  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
-}
-
+/* ✅ Cowboy Image Box */
 .image-container {
-  flex: 3; /* 30% width */
+  flex: 3;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -104,8 +208,9 @@ select:hover {
   transform: scale(1.05);
 }
 
+/* ✅ Cowboy Information Box */
 .info-container {
-  flex: 7; /* 70% width */
+  flex: 7;
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -115,8 +220,31 @@ select:hover {
   border-radius: 8px;
   border-left: 4px solid #d4af37;
   animation: fadeIn 0.8s ease-in-out;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
+/* ✅ Custom Scrollbar */
+.info-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.info-container::-webkit-scrollbar-track {
+  background: #2e1b0f;
+  border-radius: 10px;
+}
+
+.info-container::-webkit-scrollbar-thumb {
+  background: #a77b43;
+  border-radius: 10px;
+  border: 2px solid #4b2e1a;
+}
+
+.info-container::-webkit-scrollbar-thumb:hover {
+  background: #d4af37;
+}
+
+/* ✅ Typography */
 h2 {
   font-size: 26px;
   margin-bottom: 10px;
@@ -130,20 +258,24 @@ p {
   line-height: 1.6;
 }
 
+/* ✅ Responsive Design */
 @media (max-width: 768px) {
-  .content {
-    flex-direction: column;
+  .cowboy-nav {
+    display: none;
   }
 
-  .image-container {
-    width: 100%;
-  }
-
-  .info-container {
-    text-align: center;
+  .mobile-carousel {
+    display: block;
   }
 }
 
+@media (min-width: 769px) {
+  .mobile-carousel {
+    display: none;
+  }
+}
+
+/* ✅ Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
