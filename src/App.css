@@ -6,7 +6,7 @@
 body {
   font-family: 'Cinzel', serif;
   background: url('../src/images/background.jpg') no-repeat;
-  background-size: fill;
+  background-size: cover;
   color: #e8d4b0;
   text-align: center;
   margin: 0;
@@ -352,6 +352,7 @@ p {
   }
   .app-container {
     flex-direction: column;
+    height: 100%;
   }
 
   .cowboy-nav {
@@ -372,6 +373,7 @@ p {
   }
   .info-container {
     padding: 40px 20px;
+    max-height: 100%;
   
   }
   .image-container {
