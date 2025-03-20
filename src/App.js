@@ -1,18 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./App.css";
+import cowboyData from "./cowboys.json";
 
 const TMDB_API_KEY = "YOUR_TMDB_API_KEY";
 
-const cowboyNames = [
-  "The Man with No Name",
-  "Wyatt Earp",
-  "Butch Cassidy",
-  "The Sundance Kid",
-  "The Lone Ranger",
-  "Buffalo bill",
-  "Doc Holliday",
-  "Django"
-];
+const cowboyNames = cowboyData.cowboys;
+
 
 const PLACEHOLDER_IMAGE = "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg";
 
@@ -119,6 +112,16 @@ function CowboyApp() {
         </div>
 
         <div className="info-container">
+
+        <div className="button-container">
+    <button onClick={handlePrevious} disabled={selectedIndex === 0} className="nav-button">
+      ◀ Previous
+    </button>
+    <button onClick={handleNext} disabled={selectedIndex === cowboyNames.length - 1} className="nav-button">
+      Next ▶
+    </button>
+  </div>
+
           <h2>{cowboyData.name}</h2>
           <p>{cowboyData.description}</p>
 
@@ -144,14 +147,7 @@ function CowboyApp() {
     Read more on Wikipedia →
   </a>
   
-  <div className="button-container">
-    <button onClick={handlePrevious} disabled={selectedIndex === 0} className="nav-button">
-      ◀ Previous
-    </button>
-    <button onClick={handleNext} disabled={selectedIndex === cowboyNames.length - 1} className="nav-button">
-      Next ▶
-    </button>
-  </div>
+  
 </div>
         </div>
       </div>
