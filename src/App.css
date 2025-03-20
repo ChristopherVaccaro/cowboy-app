@@ -5,8 +5,8 @@
    ============================ */
 body {
   font-family: 'Cinzel', serif;
-  background: url('../src/images/background.jpg');
-  background-size: cover;
+  background: url('../src/images/background.jpg') no-repeat;
+  background-size: fill;
   color: #e8d4b0;
   text-align: center;
   margin: 0;
@@ -364,7 +364,7 @@ p {
   }
 
   .content {
-    padding: 45px 0 45px 0;
+    padding: 45px 0 0 0;
   }
   .cowboy-item {
     display: inline-block;
@@ -372,6 +372,7 @@ p {
   }
   .info-container {
     padding: 40px 20px;
+  
   }
   .image-container {
     height: 400px;
