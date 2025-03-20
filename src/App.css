@@ -13,17 +13,21 @@ body {
   padding: 0;
 }
 
-/* ============================
-   📌 MAIN APP LAYOUT
-   ============================ */
+/* MAIN APP LAYOUT */
 .app-container {
   display: flex;
   height: 100vh;
 }
 
-/* ============================
-   🏜️ SIDEBAR NAVIGATION
-   ============================ */
+
+.skull-logo {
+  height: 131px;
+  background: url('../src/images/skull-logo.png') center top no-repeat;
+  background-size: 70%;
+  display: block;
+}
+
+/* SIDEBAR NAVIGATION */
 .cowboy-nav {
   width: 250px;
   background: #4e3224;
@@ -33,13 +37,6 @@ body {
   color: #fff;
   font-family: 'Rye', serif;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-}
-
-.skull-logo {
-  height: 131px;
-  background: url('../src/images/skull-logo.png') center top no-repeat;
-  background-size: 70%;
-  display: block;
 }
 
 .nav-title {
@@ -227,14 +224,11 @@ p {
   width: 100%;
   max-height: 100%;
   object-fit: contain;
-  transition: transform 0.3s ease-in-out;
 }
 
-/* ============================
-   📌 INFO CONTAINER & SCROLLBAR
-   ============================ */
+/* INFO CONTAINER & SCROLLBAR */
 .info-container {
-  flex: 7;
+ 
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -266,42 +260,7 @@ p {
   background: #d4af37;
 }
 
-/* ============================
-   📌 RESPONSIVE DESIGN
-   ============================ */
-@media (max-width: 768px) {
-  .cowboy-nav {
-    display: none;
-  }
-  .mobile-carousel {
-    display: block;
-  }
-}
-
-@media (min-width: 769px) {
-  .mobile-carousel {
-    display: none;
-  }
-}
-
-/* ============================
-   🎬 ANIMATIONS
-   ============================ */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
-/* ============================
-   🚀 NAVIGATION BUTTONS
-   ============================ */
+/* NAVIGATION BUTTONS */
    .button-container {
     display: flex;
     justify-content: center;
@@ -319,6 +278,7 @@ p {
     cursor: pointer;
     font-weight: bold;
     transition: background 0.3s ease-in-out;
+    width: 150px;
   }
   
   .nav-button:hover {
@@ -331,14 +291,12 @@ p {
   }
   
 
-  /* ============================
-   📌 WIKIPEDIA LINK & NAV BUTTONS ALIGNMENT
-   ============================ */
+  /* WIKIPEDIA LINK & NAV BUTTONS ALIGNMENT */
 .wiki-nav-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 15px;
+  margin: 0 0 20px;
   width: 100%;
 }
 
@@ -383,3 +341,43 @@ p {
   background: #777;
   cursor: not-allowed;
 }
+
+
+
+/* On screens that are 600px or less, set the background color to olive */
+@media screen and (max-width: 768px) {
+
+  body {
+    width: 100%;
+  }
+  .app-container {
+    flex-direction: column;
+  }
+
+  .cowboy-nav {
+    width: 100vw;
+    padding: 20px 0;
+  }
+
+  .skull-logo {
+    background-size: 30%;
+  }
+
+  .content {
+    padding: 45px 0 45px 0;
+  }
+  .cowboy-item {
+    display: inline-block;
+
+  }
+  .info-container {
+    padding: 40px 20px;
+  }
+  .image-container {
+    height: 400px;
+  }
+  .nav-title {
+    margin-top: -65px;
+  }
+}
+
