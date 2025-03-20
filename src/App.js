@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import "./App.css";
 import cowboyData from "./cowboys.json";
 
@@ -15,6 +15,9 @@ function CowboyApp() {
   });
 
   const selectedCowboy = cowboyNames[selectedIndex];
+  
+  // Create a ref for the info container
+  const infoContainerRef = useRef(null);
 
   // Fetch cowboy details
   const fetchCowboyData = useCallback(async () => {
@@ -23,10 +26,10 @@ function CowboyApp() {
         `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(selectedCowboy)}`
       );
       const data = await response.json();
-  
+
       // Check if Wikipedia provides an image
       const imageUrl = data.thumbnail?.source || PLACEHOLDER_IMAGE;
-  
+
       setTimeout(() => {
         setCowboyData({
           name: selectedCowboy,
@@ -46,9 +49,14 @@ function CowboyApp() {
     }
   }, [selectedCowboy]);
 
-  // Update content when cowboy changes
+  // Update content when cowboy changes & scroll to top
   useEffect(() => {
     fetchCowboyData();
+    
+    // Scroll to the top of info container
+    if (infoContainerRef.current) {
+      infoContainerRef.current.scrollTo({ top: 0, behavior: "smooth" });
+    }
   }, [fetchCowboyData]);
 
   // Handle "Next" & "Previous" button clicks
@@ -66,9 +74,9 @@ function CowboyApp() {
 
   return (
     <div className="app-container">
-      {/* Left Navigation (Still Available) */}
+      {/* Left Navigation */}
       <nav className="cowboy-nav">
-        <div class="skull-logo"></div>
+        <div className="skull-logo"></div>
         <h2 className="nav-title">Legendary Gunslingers</h2>
         <ul>
           {cowboyNames.map((name, index) => (
@@ -89,31 +97,26 @@ function CowboyApp() {
           <img src={cowboyData.image} alt={cowboyData.name} />
         </div>
 
-        <div className="info-container">
-
-        
-
+        <div className="info-container" ref={infoContainerRef}>
           <h2>{cowboyData.name}</h2>
           <p>{cowboyData.description}</p>
 
           {/* Wikipedia Link */}
           <div className="wiki-nav-container">
-  <a href={cowboyData.wikiUrl} target="_blank" rel="noopener noreferrer" className="wiki-link">
-    Read more on Wikipedia →
-  </a>
-  
-  
-</div>
+            <a href={cowboyData.wikiUrl} target="_blank" rel="noopener noreferrer" className="wiki-link">
+              Read more on Wikipedia →
+            </a>
+          </div>
 
-<div className="button-container">
-    <button onClick={handlePrevious} disabled={selectedIndex === 0} className="nav-button">
-      ◀ Previous
-    </button>
-    <button onClick={handleNext} disabled={selectedIndex === cowboyNames.length - 1} className="nav-button">
-      Next ▶
-    </button>
-  </div>
-
+          {/* Navigation Buttons */}
+          <div className="button-container">
+            <button onClick={handlePrevious} disabled={selectedIndex === 0} className="nav-button">
+              ◀ Previous
+            </button>
+            <button onClick={handleNext} disabled={selectedIndex === cowboyNames.length - 1} className="nav-button">
+              Next ▶
+            </button>
+          </div>
         </div>
       </div>
     </div>
