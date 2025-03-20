@@ -13,8 +13,6 @@ function CowboyApp() {
     description: "Loading...",
     wikiUrl: "#"
   });
-  const [movies] = useState([]);
-  // const [loading, setLoading] = useState(false);
 
   const selectedCowboy = cowboyNames[selectedIndex];
 
