@@ -2,7 +2,20 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import "./App.css";
 import cowboyData from "./cowboys.json";
 
-const cowboyNames = cowboyData.cowboys;
+// Merge original list with additional cowboys
+const extraCowboys = [
+  "Rooster Cogburn",
+  "Calvera",
+  "Ethan Edwards",
+  "Chisum",
+  "Annie Oakley",
+  "Ned Pepper",
+  "Jesse James",
+  "Belle Starr",
+  "Tom Doniphon",
+  "Bill Munny"
+];
+const cowboyNames = [...cowboyData.cowboys, ...extraCowboys];
 const PLACEHOLDER_IMAGE = "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg";
 
 function CowboyApp() {
