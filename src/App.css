@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Rye&display=swap');
 
+/* Desktop view: disable page scrolling; only internal nav list scrolls */
+html, body {
+  overflow: hidden;
+}
+
+
 /* ============================
    🌵 GLOBAL STYLES
    ============================ */
@@ -28,6 +34,7 @@ body {
 }
 
 /* SIDEBAR NAVIGATION */
+/* Sidebar navigation container: fixed to viewport height, with scrollable list */
 .cowboy-nav {
   width: 250px;
   background: #4e3224;
@@ -37,6 +44,18 @@ body {
   color: #fff;
   font-family: 'Rye', serif;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+/* Scrollbar styling for sidebar nav */
+/* Scrollbar styling for navigation list */
+.cowboy-nav ul::-webkit-scrollbar {
+  width: 6px;
+}
+.cowboy-nav ul::-webkit-scrollbar-thumb {
+  background: #d4aa38;
+  border-radius: 3px;
 }
 
 .nav-title {
@@ -52,6 +71,9 @@ body {
 .cowboy-nav ul {
   list-style: none;
   padding: 0;
+  /* allow vertical scrolling when items exceed nav height */
+  flex: 1 1 auto;
+  overflow-y: auto;
 }
 
 .cowboy-item {
@@ -346,6 +368,10 @@ p {
 
 /* On screens that are 600px or less, set the background color to olive */
 @media screen and (max-width: 768px) {
+  /* Mobile view: enable page scrolling */
+  html, body {
+    overflow: auto;
+  }
 
   body {
     width: 100%;
@@ -358,6 +384,9 @@ p {
   .cowboy-nav {
     width: 100vw;
     padding: 20px 0;
+    /* allow collapse and inherit height on mobile */
+    height: auto;
+    overflow: visible;
   }
 
   .skull-logo {
@@ -367,9 +396,26 @@ p {
   .content {
     padding: 45px 0 0 0;
   }
+  /* make the cowboy list horizontally scrollable on mobile */
+  .cowboy-nav ul {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 10px;
+    margin: 0;
+  }
+  .cowboy-nav ul::-webkit-scrollbar {
+    height: 6px;
+  }
+  .cowboy-nav ul::-webkit-scrollbar-thumb {
+    background: #d4aa38;
+    border-radius: 3px;
+  }
   .cowboy-item {
+    flex: 0 0 auto;
     display: inline-block;
-
+    margin-right: 8px;
   }
   .info-container {
     padding: 40px 20px;
